@@ -26,7 +26,6 @@ test("verifies that the unique identifier property of the blog posts is named id
   response.body.forEach((item) => {
     expect(item.id).toBeDefined();
   });
-
 });
 
 test("a valid blog can be added ", async () => {
@@ -50,24 +49,20 @@ test("a valid blog can be added ", async () => {
   expect(titles).toContain("javaScript");
 });
 
-test('a blog can be deleted', async () => {
-  const blogsAtStart = await helper.blogsInDb()
-  const blogToDelete = blogsAtStart[0]
+test("a blog can be deleted", async () => {
+  const blogsAtStart = await helper.blogsInDb();
+  const blogToDelete = blogsAtStart[0];
 
-  await api
-    .delete(`/api/blogs/${blogToDelete.id}`)
-    .expect(204)
+  await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
 
-  const blogsAtEnd = await helper.blogsInDb()
+  const blogsAtEnd = await helper.blogsInDb();
 
-  expect(blogsAtEnd).toHaveLength(
-    helper.initialBlogs.length - 1
-  )
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1);
 
-  const titles = blogsAtEnd.map(r => r.title)
+  const titles = blogsAtEnd.map((r) => r.title);
 
-  expect(titles).not.toContain(blogToDelete.title)
-})
+  expect(titles).not.toContain(blogToDelete.title);
+});
 
 test("update a blog post successfully", async () => {
   const blogsAtStart = await helper.blogsInDb();
